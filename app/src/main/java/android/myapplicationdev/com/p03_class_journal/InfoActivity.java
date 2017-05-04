@@ -46,19 +46,6 @@ public class InfoActivity extends AppCompatActivity {
         aa = new DGAdapter(this, R.layout.row, dailygrades);
         lv.setAdapter(aa);
 
-        for (int j = 0; j < dailygrades.size(); j++) {
-            moduleCode = info[0].toString();
-            moduleName = info[1].toString();
-            String DailyGrade = dailygrades.get(j).getDgGrade();
-            Integer Week = dailygrades.get(j).getWeek();
-
-            dailygrades.add(new DailyGrade(DailyGrade, moduleCode, Week));
-
-            Intent addIntent = new Intent(InfoActivity.this, AddDailyGrade.class);
-            i.putExtra("info", info);
-            startActivity(addIntent);
-        }
-
         btnEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -95,8 +82,8 @@ public class InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent rpIntent = new Intent(Intent.ACTION_VIEW);
-                // Set the URL to be used.
-                rpIntent.setData(Uri.parse("http://www.rp.edu.sg/Module_Synopses/" + moduleCode + "_" + "moduleName" + ".aspx"));
+
+                rpIntent.setData(Uri.parse("http://www.rp.edu.sg/Module_Synopses/C347_Android_Programming_II.aspx"));
                 startActivity(rpIntent);
 
             }

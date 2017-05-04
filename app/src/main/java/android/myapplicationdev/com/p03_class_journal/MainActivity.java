@@ -14,7 +14,8 @@ public class MainActivity extends AppCompatActivity {
 
     ListView lv;
     ArrayAdapter aa;
-    ArrayList <Module> module;
+    ArrayList<Module> module;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,21 +24,23 @@ public class MainActivity extends AppCompatActivity {
         lv = (ListView) this.findViewById(R.id.lvModule);
 
         module = new ArrayList<Module>();
-        module.add(new Module("C347","Android Programming II"));
+        module.add(new Module("C302", "Web Services", "http://www.rp.edu.sg/Module_Synopses/C347_Android_Programming_II.aspx"));
+        module.add(new Module("C347", "Android Programming II", "http://www.rp.edu.sg/Module_Synopses/C347_Android_Programming_II.aspx"));
 
         aa = new ModuleAdapter(this, R.layout.modulerow, module);
         lv.setAdapter(aa);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String moduleCode = module.get(position).getModuleCode();
                 String moduleName = module.get(position).getModuleName();
-                String[] info = {moduleCode,moduleName};
+                String moduleLink = module.get(position).getLink();
+                String[] info = {moduleCode, moduleName,moduleLink};
 
-                Intent i = new Intent(MainActivity.this,InfoActivity.class);
-                i.putExtra("info",info);
+                Intent i = new Intent(MainActivity.this, InfoActivity.class);
 
+                i.putExtra("info", info);
                 startActivity(i);
 
             }
