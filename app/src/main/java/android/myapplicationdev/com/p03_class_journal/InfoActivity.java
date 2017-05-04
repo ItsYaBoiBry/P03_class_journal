@@ -57,9 +57,8 @@ public class InfoActivity extends AppCompatActivity {
             Intent addIntent = new Intent(InfoActivity.this, AddDailyGrade.class);
             i.putExtra("info", info);
             startActivity(addIntent);
-
-
         }
+
         btnEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {

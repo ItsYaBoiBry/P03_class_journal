@@ -37,7 +37,7 @@ public class DGAdapter extends ArrayAdapter{
 
         DailyGrade currentCa = dailygrades.get(position);
 
-        tvWeek.setText(currentCa.getWeek());
+        tvWeek.setText("Week: "+currentCa.getWeek());
         tvGrade.setText(currentCa.getDgGrade());
         ivDG.setImageResource(R.drawable.dg);
         return rowView;
