@@ -20,11 +20,11 @@ import java.util.ArrayList;
 public class InfoActivity extends AppCompatActivity {
     Button btnEmail, btnAdd, btnInfo;
     ListView lv;
-    ArrayAdapter aa;
+    DGAdapter aa = null;
     ArrayList<DailyGrade> dailygrades;
     String moduleCode;
     String moduleName;
-    int requestCode = 1;
+    int requestCodes = 1;
     int size;
 
     @Override
@@ -40,22 +40,21 @@ public class InfoActivity extends AppCompatActivity {
         Intent i = getIntent();
         // Get the String array named "info" we passed in
         final String[] info = i.getStringArrayExtra("info");
+
         // Get the TextView object
         dailygrades = new ArrayList<DailyGrade>();
+        aa = new DGAdapter(this, R.layout.row, dailygrades);
+        lv.setAdapter(aa);
+
         for (int j = 0; j < dailygrades.size(); j++) {
             moduleCode = info[0].toString();
             moduleName = info[1].toString();
             String DailyGrade = dailygrades.get(j).getDgGrade();
             Integer Week = dailygrades.get(j).getWeek();
 
-
             dailygrades.add(new DailyGrade(DailyGrade, moduleCode, Week));
 
-
-            aa = new DGAdapter(this, R.layout.row, dailygrades);
-            lv.setAdapter(aa);
-
-            Intent addIntent = new Intent(InfoActivity.this, AddDG.class);
+            Intent addIntent = new Intent(InfoActivity.this, AddDailyGrade.class);
             i.putExtra("info", info);
             startActivity(addIntent);
 
@@ -81,11 +80,11 @@ public class InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 size = dailygrades.size() + 1;
-                Intent weeks = new Intent(InfoActivity.this, AddDG.class);
+                Intent weeks = new Intent(InfoActivity.this, AddDailyGrade.class);
                 weeks.putExtra("week", dailygrades.size() + 1 + "");
                 DailyGrade dailyGrade = new DailyGrade(info[0],"B",(dailygrades.size()+1));
                 weeks.putExtra("c347",dailyGrade);
-                startActivityForResult(weeks, requestCode);
+                startActivityForResult(weeks, requestCodes);
             }
         });
         btnInfo.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +108,7 @@ public class InfoActivity extends AppCompatActivity {
             if (data != null) {
                 String like = data.getStringExtra("grade");
 
-                if (requestCode == requestCode) {
+                if (requestCode == requestCodes) {
                     dailygrades.add(new DailyGrade(like,"C349" ,size));
                     aa.notifyDataSetChanged();
                 }
