@@ -21,7 +21,7 @@ public class InfoActivity extends AppCompatActivity {
     Button btnEmail, btnAdd, btnInfo;
     ListView lv;
     DGAdapter aa = null;
-    ArrayList<DailyGrade> dailygrades;
+    ArrayList<DailyGrade> dailygrades = new ArrayList<DailyGrade>();;
     String moduleCode;
     String moduleName;
     int requestCodes = 1;
@@ -42,7 +42,7 @@ public class InfoActivity extends AppCompatActivity {
         final String[] info = i.getStringArrayExtra("info");
 
         // Get the TextView object
-        dailygrades = new ArrayList<DailyGrade>();
+
         aa = new DGAdapter(this, R.layout.row, dailygrades);
         lv.setAdapter(aa);
 
@@ -63,12 +63,17 @@ public class InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent email = new Intent(Intent.ACTION_SEND);
+                String msg = "";
+                for(int i = 0; i < dailygrades.size(); i++){
+                    msg += "Week " + (i) +": DG: " + dailygrades.get(i).getDgGrade() +"\n";
+                }
                 email.putExtra(Intent.EXTRA_EMAIL,
                         new String[]{"jason_lim@rp.edu.sg"});
                 email.putExtra(Intent.EXTRA_SUBJECT,
                         "-");
                 email.putExtra(Intent.EXTRA_TEXT,
-                        "");
+                        "Hi faci, \n I am ... \n Please see my remarks so far, thank you!" +
+                                "\n\n" + msg);
                 email.setType("message/rfc822");
                 startActivity(Intent.createChooser(email,
                         "Choose an Email client :"));
